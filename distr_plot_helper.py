@@ -23,18 +23,17 @@ def spaced_quantiles(n):
     return np.linspace(0, 1, num=n, endpoint=True)
 
 
-def make_stack_plot_array(distr, axis=0, max_quantiles=np.inf):
+def make_stack_plot_array(distr, max_quantiles=np.inf):
     """
-    Generates from a 2D array of sample distributions an array that can be used
-    to plot distribution data in a stack plot.
+    Generates from a 2D "jagged array" of sample distributions a rectangular
+    array that can be used in a stack plot.
     """
-    maxabsval = max(distr.max(), -distr.min())
+    jagged_maxlen = max(len(a) for a in distr)
+    quantiles_count = min(max_quantiles, jagged_maxlen)
 
-    sorted_array = np.sort(distr, axis=axis)
-    if len(sorted_array) > max_quantiles:
-        sorted_array = sorted_array.take(
-            np.linspace(0, len(sorted_array)-1, num=max_quantiles).astype(np.int),
-            axis=axis
-        )
+    quantile_lines = jagged_index_quantiles(
+        distr, quantiles=spaced_quantiles(quantiles_count)
+    )
 
-    return np.diff(sorted_array, axis=axis, prepend=-maxabsval, append=maxabsval)
+    maxabsval = max(quantile_lines.max(), -quantile_lines.min())
+    return np.diff(quantile_lines, axis=0, prepend=-maxabsval, append=maxabsval)
