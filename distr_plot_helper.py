@@ -1,17 +1,17 @@
 import numpy as np
 
 
-def index_jagged(jagged, sorted_quantiles):
+def index_jagged(jagged, quantiles):
     """
     Takes a rectangular slice of a "jagged array". The quantiles dictate the
     element positions in each jagged subarray, as a percentage of the full
     subarray length. For each quantile and jagged subarray, the nearest
     element in the subarray to the given quantile is used.
     """
-    result = np.zeros((len(jagged), len(sorted_quantiles)))
+    result = np.zeros((len(jagged), len(quantiles)))
 
     for i, subarray in enumerate(jagged):
-        result[i] = np.quantile(subarray, sorted_quantiles)
+        result[i] = np.quantile(subarray, quantiles)
 
     return result
 
