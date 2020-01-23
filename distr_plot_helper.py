@@ -23,16 +23,6 @@ def spaced_quantiles(n):
     return np.linspace(0, 1, num=n, endpoint=True)
 
 
-def resize2D_to_rectangular(jagged):
-    """
-    Takes a 2D "jagged array" (i.e., an iterable of 1D arrays) and creates a
-    rectangular 2D numpy array by resampling each 1D array up to the same
-    length.
-    """
-    jagged_len = max(len(a) for a in jagged)
-    return index_jagged(jagged, spaced_quantiles(jagged_len))
-
-
 def make_stack_plot_array(distr, axis=0, max_quantiles=np.inf):
     """
     Generates from a 2D array of sample distributions an array that can be used
