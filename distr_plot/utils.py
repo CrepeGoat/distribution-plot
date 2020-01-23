@@ -36,4 +36,4 @@ def make_stack_plot_array(distr, max_quantiles=np.inf):
     )
 
     maxabsval = max(quantile_lines.max(), -quantile_lines.min())
-    return np.diff(quantile_lines, axis=0, prepend=-maxabsval, append=maxabsval)
+    return np.diff(quantile_lines, axis=1, prepend=-maxabsval, append=maxabsval)
