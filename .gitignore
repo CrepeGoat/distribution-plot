@@ -1,4 +1,10 @@
 *.pyc
 __pycache__
+*.egg-info
+
+venv*
+
+*.sublime-project
+*.sublime-workspace
 
 .ipynb_checkpoints
