@@ -1,20 +1,17 @@
 import numpy as np
 
 
-def index_jagged(jagged, quantile_indices):
+def index_jagged(jagged, sorted_quantiles):
     """
     Takes a rectangular slice of a "jagged array". The quantiles dictate the
     element positions in each jagged subarray, as a percentage of the full
     subarray length. For each quantile and jagged subarray, the nearest
     element in the subarray to the given quantile is used.
     """
-    result = np.zeros((len(jagged), len(quantile_indices)))
+    result = np.zeros((len(jagged), len(sorted_quantiles)))
 
-    for i, a in enumerate(jagged):
-        result[i] = np.asanyarray(a)[np.digitize(
-            quantile_indices,
-            np.linspace(0, 1, num=(len(a)+1))[1:-1],
-        )]
+    for i, subarray in enumerate(jagged):
+        result[i] = np.quantile(subarray, sorted_quantiles)
 
     return result
 
@@ -23,7 +20,7 @@ def spaced_quantiles(n):
     """
     Generates an array of evenly-spaced quantiles.
     """
-    return np.linspace(0, 1, num=(2*n+1))[1:-1:2]
+    return np.linspace(0, 1, num=n, endpoint=True)
 
 
 def resize2D_to_rectangular(jagged):
