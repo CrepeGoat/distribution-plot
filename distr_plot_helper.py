@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def index_jagged(jagged, quantiles):
+def jagged_index_quantiles(jagged, quantiles):
     """
     Takes a rectangular slice of a "jagged array". The quantiles dictate the
     element positions in each jagged subarray, as a percentage of the full
