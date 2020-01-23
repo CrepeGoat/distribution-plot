@@ -19,14 +19,14 @@ def resize2D_to_rectangular(jagged):
     return result
 
 
-def make_wave_dist_array(array, axis=0, max_percentiles=np.inf):
+def make_stack_plot_array(distr, axis=0, max_percentiles=np.inf):
     """
     Generates from a 2D array of sample distributions an array that can be used
     to plot distribution data in a stack plot.
     """
-    maxabsval = max(array.max(), -array.min())
+    maxabsval = max(distr.max(), -distr.min())
 
-    sorted_array = np.sort(array, axis=axis)
+    sorted_array = np.sort(distr, axis=axis)
     if len(sorted_array) > max_percentiles:
         sorted_array = sorted_array.take(
             np.linspace(0, len(sorted_array)-1, num=max_percentiles).astype(np.int),
