@@ -19,6 +19,13 @@ def index_jagged(jagged, percentile_indices):
     return result
 
 
+def spaced_percentiles(n):
+    """
+    Generates an array of evenly-spaced percentiles.
+    """
+    return np.linspace(0, 1, num=(2*n+1))[1:-1:2]
+
+
 def resize2D_to_rectangular(jagged):
     """
     Takes a 2D "jagged array" (i.e., an iterable of 1D arrays) and creates a
@@ -26,10 +33,7 @@ def resize2D_to_rectangular(jagged):
     length.
     """
     jagged_len = max(len(a) for a in jagged)
-    return index_jagged(
-        jagged,
-        np.linspace(0, 1, num=(2*jagged_len+1))[1:-1:2]
-    )
+    return index_jagged(jagged, spaced_percentiles(jagged_len))
 
 
 def make_stack_plot_array(distr, axis=0, max_percentiles=np.inf):
