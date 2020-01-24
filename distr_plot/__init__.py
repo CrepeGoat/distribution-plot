@@ -1,1 +1,1 @@
-from plotter import distr
+from .plotter import distr
