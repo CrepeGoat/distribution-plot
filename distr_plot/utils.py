@@ -33,7 +33,7 @@ def make_quantile_lines(distr, max_quantiles=np.inf):
 
     return jagged_index_quantiles(
         distr, quantiles=spaced_quantiles(quantiles_count)
-    )
+    ).T
 
 
 def make_stack_plot_array(quantile_lines):
@@ -42,4 +42,4 @@ def make_stack_plot_array(quantile_lines):
     array that can be directly used in a stack plot.
     """
     maxabsval = max(quantile_lines.max(), -quantile_lines.min())
-    return np.diff(quantile_lines, axis=1, prepend=-maxabsval, append=maxabsval)
+    return np.diff(quantile_lines, axis=0, prepend=-maxabsval, append=maxabsval)
