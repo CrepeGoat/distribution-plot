@@ -20,7 +20,7 @@ def bins(array, bin_count):
 
 def dense_plot(x, y, bin_count, max_quantiles=np.inf, **kwargs):
     avg_indices, bin_arrays = bins(y, bin_count)
-    distr_plot.plotter.distr(
+    return distr_plot.plotter.distr(
         np.quantile(x, avg_indices),
         bin_arrays,
         max_quantiles, **kwargs

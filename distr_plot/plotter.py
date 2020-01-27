@@ -17,7 +17,7 @@ def distr(x, y_distr, max_quantiles=np.inf, **kwargs):
         ] + [(0, 0, 0, 0)]
 
     distr_array = distr_plot.utils.make_stack_plot_array(y_distr, max_quantiles).T
-    plt.stackplot(
+    return plt.stackplot(
         x, distr_array,
         colors=make_colors(distr_array.shape[0]),
         baseline='sym',
