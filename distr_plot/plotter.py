@@ -10,15 +10,15 @@ def distr(x, y_distr, max_quantiles=np.inf, **kwargs):
     """
 
     def make_colors(splits):
-        splits = splits-2
+        splits = splits-1
         return [(0, 0, 0, 0)] + [
             3*(0.75*np.abs(i/(splits/2) - 1),) + (1,)
             for i in range(splits)
         ] + [(0, 0, 0, 0)]
 
-    distr_array = distr_plot.utils.make_stack_plot_array(y_distr, max_quantiles).T
+    distr_array = distr_plot.utils.make_quantile_lines(y_distr, max_quantiles).T
     return plt.stackplot(
-        x, distr_array,
+        x, distr_plot.utils.make_stack_plot_array(distr_array),
         colors=make_colors(distr_array.shape[0]),
         baseline='sym',
         **kwargs
