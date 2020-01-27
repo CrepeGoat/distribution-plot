@@ -17,9 +17,16 @@ def distr(x, y_distr, max_quantiles=np.inf, **kwargs):
         ] + [(0, 0, 0, 0)]
 
     distr_array = distr_plot.utils.make_quantile_lines(y_distr, max_quantiles)
-    return plt.stackplot(
+
+    plot_objs = []
+    plot_objs.extend(plt.plot(x, distr_array[0], '-'))
+    plot_objs.extend(plt.plot(x, distr_array[-1], '-'))
+    
+    ylim = plt.ylim()
+    plot_objs.extend(plt.stackplot(
         x, distr_plot.utils.make_stack_plot_array(distr_array),
         colors=make_colors(distr_array.shape[0]),
         baseline='sym',
         **kwargs
-    )
+    ))
+    plt.ylim(ylim)  # sets visible range to ignore whitespace from stackplot
