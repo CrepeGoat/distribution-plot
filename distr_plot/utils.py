@@ -11,7 +11,7 @@ def jagged_index_quantiles(jagged, quantiles):
     result = np.zeros((len(jagged), len(quantiles)))
 
     for i, subarray in enumerate(jagged):
-        result[i] = np.quantile(subarray, quantiles)
+        result[i] = np.quantile(subarray, quantiles, interpolation='nearest')
 
     return result
 
