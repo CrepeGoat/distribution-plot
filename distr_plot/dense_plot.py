@@ -12,7 +12,9 @@ def bins(array, segment_count):
     """
     return (
         np.linspace(0, 1, 2*segment_count+1, endpoint=True)[1:-1:2],
-        np.split(array, np.linspace(0, 1, segment_count+1, endpoint=True)[1:-1]),
+        np.split(array, np.linspace(
+            0, len(array), segment_count+1, endpoint=True
+        )[1:-1].astype(np.int64)),
     )
 
 
