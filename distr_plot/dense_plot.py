@@ -1,10 +1,10 @@
-import distr_plot.plotter
+import distr_plot.distr_plot
 
 import numpy as np
 import matplotlib.pyplot as plt
 
 
-def bins(array, bin_count):
+def _bins(array, bin_count):
     """
     Partitions an array into equal-ish-width bins. Returns
     - the center quantile corresponding to each bin, and
@@ -18,9 +18,9 @@ def bins(array, bin_count):
     )
 
 
-def dense_plot(x, y, bin_count, max_quantiles=np.inf, **kwargs):
-    avg_indices, bin_arrays = bins(y, bin_count)
-    return distr_plot.plotter.distr(
+def dense(x, y, bin_count, max_quantiles=np.inf, **kwargs):
+    avg_indices, bin_arrays = _bins(y, bin_count)
+    return distr_plot.distr_plot.distr(
         np.quantile(x, avg_indices),
         bin_arrays,
         max_quantiles, **kwargs
