@@ -50,11 +50,21 @@ def _make_stackplot_colors(stack_count):
     """
     Generates a list of rgba color values for the distribution stack plot.
     """
+    def color(q):
+        """
+        Produces a color for a given quantile.
+        """
+        dist_to_median = 2*np.abs(q - 0.5)
+        return (0.75*dist_to_median + 0.125,)*3 + (1,)
+
     color_count = stack_count-1
-    return [(0, 0, 0, 0)] + [
-        3*(0.75*np.abs(i/(color_count/2) - 1),) + (1,)
+
+    blank = (0, 0, 0, 0)
+
+    return [blank] + [
+        color((i+0.5) / color_count)
         for i in range(color_count)
-    ] + [(0, 0, 0, 0)]
+    ] + [blank]
 
 
 ###############################################################################
