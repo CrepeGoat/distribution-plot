@@ -46,20 +46,23 @@ def _make_stack_plot_array(quantile_lines):
     return np.diff(quantile_lines, axis=0, prepend=-maxabsval, append=maxabsval)
 
 
+def _make_stack_colors(splits):
+    """
+    Generates a list of rgba color values for the distribution stack plot.
+    """
+    splits = splits-1
+    return [(0, 0, 0, 0)] + [
+        3*(0.75*np.abs(i/(splits/2) - 1),) + (1,)
+        for i in range(splits)
+    ] + [(0, 0, 0, 0)]
+
+
 ###############################################################################
 
 def distr(x, y_distr, max_quantiles=np.inf, **kwargs):
     """
     Plots a distribution along the y-axis as it changes over the x-axis.
     """
-
-    def make_colors(splits):
-        splits = splits-1
-        return [(0, 0, 0, 0)] + [
-            3*(0.75*np.abs(i/(splits/2) - 1),) + (1,)
-            for i in range(splits)
-        ] + [(0, 0, 0, 0)]
-
     distr_array = _make_quantile_lines(y_distr, max_quantiles)
 
     plot_objs = []
@@ -69,7 +72,7 @@ def distr(x, y_distr, max_quantiles=np.inf, **kwargs):
     ylim = plt.ylim()
     plot_objs.extend(plt.stackplot(
         x, _make_stack_plot_array(distr_array),
-        colors=make_colors(distr_array.shape[0]),
+        colors=_make_stack_colors(distr_array.shape[0]),
         baseline='sym',
         **kwargs
     ))
