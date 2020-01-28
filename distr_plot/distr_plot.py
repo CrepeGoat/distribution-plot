@@ -46,14 +46,14 @@ def _make_stackplot_array(quantile_lines):
     return np.diff(quantile_lines, axis=0, prepend=-maxabsval, append=maxabsval)
 
 
-def _make_stackplot_colors(splits):
+def _make_stackplot_colors(stack_count):
     """
     Generates a list of rgba color values for the distribution stack plot.
     """
-    splits = splits-1
+    color_count = stack_count-1
     return [(0, 0, 0, 0)] + [
-        3*(0.75*np.abs(i/(splits/2) - 1),) + (1,)
-        for i in range(splits)
+        3*(0.75*np.abs(i/(color_count/2) - 1),) + (1,)
+        for i in range(color_count)
     ] + [(0, 0, 0, 0)]
 
 
