@@ -37,7 +37,7 @@ def _make_quantile_lines(distr, max_quantiles=np.inf):
     ).T
 
 
-def _make_stack_plot_array(quantile_lines):
+def _make_stackplot_array(quantile_lines):
     """
     Generates from a 2D "jagged array" of sample distributions a rectangular
     array that can be directly used in a stack plot.
@@ -46,7 +46,7 @@ def _make_stack_plot_array(quantile_lines):
     return np.diff(quantile_lines, axis=0, prepend=-maxabsval, append=maxabsval)
 
 
-def _make_stack_colors(splits):
+def _make_stackplot_colors(splits):
     """
     Generates a list of rgba color values for the distribution stack plot.
     """
@@ -71,8 +71,8 @@ def distr(x, y_distr, max_quantiles=np.inf, **kwargs):
     
     ylim = plt.ylim()
     plot_objs.extend(plt.stackplot(
-        x, _make_stack_plot_array(distr_array),
-        colors=_make_stack_colors(distr_array.shape[0]),
+        x, _make_stackplot_array(distr_array),
+        colors=_make_stackplot_colors(distr_array.shape[0]),
         baseline='sym',
         **kwargs
     ))
