@@ -76,8 +76,8 @@ def distr(x, y_distr, max_quantiles=np.inf, **kwargs):
     distr_array = _make_quantile_lines(y_distr, max_quantiles)
 
     plot_objs = []
-    plot_objs.extend(plt.plot(x, distr_array[0], '-'))
-    plot_objs.extend(plt.plot(x, distr_array[-1], '-'))
+    plot_objs.extend(plt.plot(x, distr_array[0], 'k', linewidth=0.3))
+    plot_objs.extend(plt.plot(x, distr_array[-1], 'k', linewidth=0.3))
     
     ylim = plt.ylim()
     plot_objs.extend(plt.stackplot(
